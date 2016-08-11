@@ -14,6 +14,8 @@ var async = require('async');
 			 }else{
 				 cb("player already exit","can't creat member")
 			 }
+		 },function(result,cb){
+			 member.getByName(reqBody.name,cb);
 		 }
 	 ],function(err,result){
 		 if(err){
