@@ -8,6 +8,7 @@ var ReqType = require(global.__base+"/enum/ReqTypeKey");
 var LanguageType = require(global.__base+"/enum/LanguageType");
 var fplocalize = require(global.__base + "/localization/fplocalize");
 var login = require("./login");
+var register = require("./register");
 var async = require("async");
 function actionResolver(req,res){
 	var date = new Date();
@@ -75,7 +76,7 @@ function actionResolver(req,res){
 
 function routeReqWithActionKey(req,res,reqBody,actionKey){
 	if(actionKey == ReqType.register.key){
-		
+		register(req,res,reqBody);
 	}
 	if(actionKey == ReqType.login.key){
 		login(req,res,reqBody);

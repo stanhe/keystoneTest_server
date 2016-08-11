@@ -46,7 +46,10 @@ PlayerDemo.prototype.getPlayerDataByNameAndPassword = function(playerName,player
 	var condition = {playerName:playerName,playerPassword:playerPassword}
 	PlayerModel.model.findOne(condition).select("-playerPassword").exec(callback)
 }
-
+PlayerDemo.prototype.getByName = function(playerName,callback){
+	var condition = {playerName:playerName}
+	PlayerModel.model.findOne(condition).select("-playerPassword").exec(callback)
+}
 PlayerDemo.prototype.updatePlayerGoldByPlayerName = function (playerName, rewardGold, callback) {
 
 	var condition = {playerName: playerName};
