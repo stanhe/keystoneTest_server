@@ -64,5 +64,19 @@ PlayerDemo.prototype.updateMemberData = function(playerName,memberData,callback)
 	.select("-playerPassword")
 	.exec(callback)
 }
+PlayerDemo.prototype.getLastRequestDateByToken = function(token){
+	PlayerModel.model.findOneAndUpdate(
+		{token:token},
+		{lastRequestDate : new Date()},
+		{upsert:false})
+	.exec();
+}
+PlayerDemo.prototype.updateLastRequestDate = function(token){
+	PlayerModel.model.findOneAndUpdate(
+		{token:token},
+		{lastRequestDate :new Date()},
+		{upsert:false}
+	).exec()
+}
 
 module.exports = PlayerDemo;
