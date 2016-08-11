@@ -84,6 +84,9 @@ function routeReqWithActionKey(req,res,reqBody,actionKey){
 	if(actionKey == ReqType.searchMission.key){
 		
 	}
+	if(actionKey == ReqType.getMessage.key){
+		
+	}
 }
 
 exports = module.exports = function(req,res){
