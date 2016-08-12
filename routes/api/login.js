@@ -6,9 +6,24 @@ var async = require('async');
 var crypto = require('crypto');
 function login(req,res,reqBody){
 	var players = new player();
+	
+	var jsonData = JSON.stringify(req.body);
+	var currentBody = JSON.parse(jsonData)
+	
+	var type = currentBody.type;
+	var typeValue = (type == undefined || type == '');
+	var password = currentBody.password;
+	var name = currentBody.name;
+	console.log("user : "+name);
+	console.log("password : "+password);
+	console.log("type : "+type);
 	async.waterfall([
 		function (cb) {
-			players.getPlayerDataByNameAndPassword(reqBody.name,reqBody.password,cb)
+			if(typeValue){
+				players.getPlayerDataByNameAndPassword(name,password, cb)
+			}else {
+				players.getPlayerDataByNameAndPassword(reqBody.name, reqBody.password, cb)
+			}
 		},function(playerData,cb){
 			if(playerData == null){
 				console.log("playerData is null")
@@ -28,7 +43,11 @@ function login(req,res,reqBody){
 				token:newToken,
 				lastRequestDate:date
 			};
-			players.updateMemberData(reqBody.name,memberDataToUpdate,cb)
+			if(typeValue){
+				players.updateMemberData(name,memberDataToUpdate,cb)
+			}else {
+				players.updateMemberData(reqBody.name, memberDataToUpdate, cb)
+			}
 		}
 	],function(error,result){
 		console.log("----finally----")

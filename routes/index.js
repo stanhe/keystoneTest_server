@@ -35,7 +35,8 @@ var routes = {
 // Setup Route Bindings
 exports = module.exports = function (app) {
 	// Views
-	app.post('/api', routes.api.index);
+	app.post('/api/', routes.api.index);
+	app.post('/api/login', routes.api.login);
 	app.get('/', routes.views.index);
 	// NOTE: To protect a route so that only admins can see it, use the requireUser middleware:
 	// app.get('/protected', middleware.requireUser, routes.views.protected);
