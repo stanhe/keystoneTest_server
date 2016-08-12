@@ -75,10 +75,31 @@ var async = require('async');
 //var bytes  = CryptoJS.AES.decrypt(ciphertext.toString(), 'secret12');
 //var plaintext = bytes.toString(CryptoJS.enc.Utf8);
 
-var manager = require("../manager/CryptoManager");
-var Manager = new manager();
-var key = Manager.encryptDataStr("stan is a superman","good");
-console.log(key);
+//var manager = require("../manager/CryptoManager");
+//var Manager = new manager();
+//var key = Manager.encryptDataStr("stan is a superman","good");
+//console.log(key);
+//
+//var result = Manager.decryptDataStr(key,"good");
+//console.log(result);
 
-var result = Manager.decryptDataStr(key,"good");
-console.log(result);
+
+
+//function test(){
+//	if (arguments.callee._singletonInstance) {
+//		console.log("callee0 :" + arguments.callee);
+//		return arguments.callee._singletonInstance;
+//	}
+//	arguments.callee._singletonInstance = this;
+//	console.log("callee1 :"+arguments.callee);
+//}
+//
+//
+//var test1 = new test();
+//var test2 = new test();
+
+
+
+
+
+

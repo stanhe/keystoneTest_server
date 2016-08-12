@@ -2,9 +2,11 @@
  * Created by stan on 16/8/11.
  */
 var player = require(global.__base+"/models/gameplayer/Player");
+var APIRequestHandler = require(global.__base + "/routes/APIRequestHandler");
 var async = require('async');
  function register(req,res,reqBody){
  	var member = new player();
+	 var resHandler = new APIRequestHandler();
 	 async.waterfall([
 		 function(cb){
 		 member.getByName(reqBody.name,cb);
@@ -21,8 +23,9 @@ var async = require('async');
 		 if(err){
 			 res.end(JSON.stringify({"error":err,"result":result}))
 		 }else {
-			 res.writeHead(200, "application/json");
-			 res.end(JSON.stringify(result))
+			 //res.writeHead(200, "application/json");
+			 //res.end(JSON.stringify(result))
+			 resHandler.sendDefaultJsonSuccessResponseWithResData(res,result);
 		 }
 	 })
  }

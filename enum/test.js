@@ -2,7 +2,9 @@
  * Created by stan on 16/8/5.
  */
 function Utility(){
-
+	if (arguments.callee._singletonInstance)
+		return arguments.callee._singletonInstance;
+	arguments.callee._singletonInstance = this;
 }
 
 Utility.home = function(msg){

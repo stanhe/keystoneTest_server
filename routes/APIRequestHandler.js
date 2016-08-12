@@ -94,7 +94,6 @@ APIRequestHandler.prototype.sendRes = function (res, resData, type) {
 APIRequestHandler.prototype.encryptDataStr = function (resDataStr) {
 	var d = new Date();
 	var timeStr = d.getTime().toString();
-
 	var encryptedStr = cryptoManager.encryptDataStr(resDataStr, timeStr);
 
 	var encryptedDataAry = [encryptedStr, timeStr];

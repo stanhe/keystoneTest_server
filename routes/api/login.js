@@ -2,10 +2,12 @@
  * Created by stan on 16/8/10.
  */
 var player = require(global.__base+"/models/gameplayer/Player");
+var APIRequestHandler = require(global.__base + "/routes/APIRequestHandler");
 var async = require('async');
 var crypto = require('crypto');
 function login(req,res,reqBody){
 	var players = new player();
+	var resHandler = new APIRequestHandler();
 	
 	var jsonData = JSON.stringify(req.body);
 	var currentBody = JSON.parse(jsonData)
@@ -54,9 +56,11 @@ function login(req,res,reqBody){
 		if(error){
 			res.end(JSON.stringify({"error":"error happened","result":result}))
 		}else{
-			res.writeHead(200,"application/json");
-			res.end(JSON.stringify(result))
+			//res.writeHead(200,"application/json");
+			//res.end(JSON.stringify(result))
+			resHandler.sendDefaultJsonSuccessResponseWithResData(res,result);
 		}
+		
 	})
 }
 
