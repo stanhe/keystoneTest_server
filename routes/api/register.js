@@ -22,7 +22,7 @@ var async = require('async');
 	 ],function(err,result){
 		 if(err){
 			 //res.end(JSON.stringify({"error":err,"result":result}))
-			 resHandler.sendDefaultJsonErrResponse(err,result);
+			 resHandler.sendDefaultJsonErrResponseWithResData(res,err,result);
 		 }else {
 			 //res.writeHead(200, "application/json");
 			 //res.end(JSON.stringify(result))
