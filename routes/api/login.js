@@ -54,7 +54,8 @@ function login(req,res,reqBody){
 	],function(error,result){
 		console.log("----finally----")
 		if(error){
-			res.end(JSON.stringify({"error":"error happened","result":result}))
+			//res.end(JSON.stringify({"error":"error happened","result":result}))
+			resHandler.sendDefaultJsonErrResponse(error,result);
 		}else{
 			//res.writeHead(200,"application/json");
 			//res.end(JSON.stringify(result))
