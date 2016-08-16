@@ -95,11 +95,38 @@ var async = require('async');
 //}
 //
 //
-//var test1 = new test();
-//var test2 = new test();
-
-
-
-
-
-
+//var CryptoJS = require("crypto-js");
+//
+//function getLeadingZeros (str, size){
+//	var retStr = "";
+//	for(var i = 0; i < size; i++){
+//		retStr = retStr +'0';
+//	}
+//
+//	return (retStr + str).substr(-size);
+//};
+//
+//function encrypto(rawDataStr, seed){
+//	console.log("--------*** encrypt ***--------")
+//	var key_Sha = CryptoJS.SHA256(seed.toString());
+//	var iv_Sha = CryptoJS.SHA512(seed.toString());
+//	console.log("key_sha : "+key_Sha)
+//	console.log("iv_sha : "+iv_Sha)
+//	console.log("key_getLeadingZeros _key_sha: "+getLeadingZeros(key_Sha,32))
+//	console.log("key_getLeadingZeros _key_iv_sha: "+getLeadingZeros(iv_Sha,16))
+//
+//	var key_Hex = CryptoJS.enc.Utf8.parse( getLeadingZeros(key_Sha,32) );
+//	var iv_Hex = CryptoJS.enc.Utf8.parse( getLeadingZeros(iv_Sha,16) );
+//
+//	console.log("key_Hex : "+key_Hex)
+//	console.log("iv_Hex : "+iv_Hex)
+//
+//
+//	var encrypted = CryptoJS.AES.encrypt(rawDataStr,key_Hex,{iv:iv_Hex});
+//	console.log("--------*** result ***--------")
+//	console.log("encrypted : "+encrypted);
+//	console.log("encrypted.ciphertext : "+encrypted.ciphertext.toString(CryptoJS.enc.Base64));
+//	return encrypted.ciphertext.toString(CryptoJS.enc.Base64);
+//}
+//
+//encrypto("stan","12580");

@@ -23,15 +23,14 @@ function CryptoManager(){
  	for(var i = 0; i < size; i++){
  		retStr = retStr +'0';
  	}
+	
  	return (retStr + str).substr(-size);
  };
 
 
  CryptoManager.prototype.encryptDataStr = function(rawDataStr, seed){
- 	
  	var key_Sha = CryptoJS.SHA256(seed.toString());
  	var iv_Sha = CryptoJS.SHA512(seed.toString());
-
  	var key_Hex = CryptoJS.enc.Utf8.parse( getLeadingZeros(key_Sha,32) );
  	var iv_Hex = CryptoJS.enc.Utf8.parse( getLeadingZeros(iv_Sha,16) );
 
