@@ -21,11 +21,8 @@ var async = require('async');
 		 }
 	 ],function(err,result){
 		 if(err){
-			 //res.end(JSON.stringify({"error":err,"result":result}))
-			 resHandler.sendDefaultJsonErrResponseWithResData(res,err,result);
+			 resHandler.sendDefaultJsonErrResponse(res,err);
 		 }else {
-			 //res.writeHead(200, "application/json");
-			 //res.end(JSON.stringify(result))
 			 resHandler.sendDefaultJsonSuccessResponseWithResData(res,result);
 		 }
 	 })

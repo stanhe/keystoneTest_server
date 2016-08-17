@@ -51,14 +51,11 @@ function login(req,res,reqBody){
 				players.updateMemberData(reqBody.name, memberDataToUpdate, cb)
 			}
 		}
-	],function(error,result){
+	],function(err,result){
 		console.log("----finally----")
 		if(error){
-			//res.end(JSON.stringify({"error":"error happened","result":result}))
-			resHandler.sendDefaultJsonErrResponse(error,result);
+			resHandler.sendDefaultJsonErrResponse(res,err);
 		}else{
-			//res.writeHead(200,"application/json");
-			//res.end(JSON.stringify(result))
 			resHandler.sendDefaultJsonSuccessResponseWithResData(res,result);
 		}
 		
