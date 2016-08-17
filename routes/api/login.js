@@ -53,7 +53,7 @@ function login(req,res,reqBody){
 		}
 	],function(err,result){
 		console.log("----finally----")
-		if(error){
+		if(err){
 			resHandler.sendDefaultJsonErrResponse(res,err);
 		}else{
 			resHandler.sendDefaultJsonSuccessResponseWithResData(res,result);
