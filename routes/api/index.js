@@ -10,8 +10,12 @@ var fplocalize = require(global.__base + "/localization/fplocalize");
 var login = require("./login");
 var register = require("./register");
 var async = require("async");
+
+var backHandler = new APIRequestHandler();
+
 function actionResolver(req,res){
 	var date = new Date();
+	
 	console.log("-----"+date+"------")
 	console.log("body: "+JSON.stringify(req.body));
 	
@@ -28,7 +32,9 @@ function actionResolver(req,res){
 	if(action == ReqType.searchMission.key || action == ReqType.getMessage){
 		if(token ==undefined || token.trim()==''){
 			var message = fplocalize(LanguageType.en.key).missingParameter + 'token';
-			res.end(JSON.stringify({"error":"error happened","message":message}))
+			//res.end(JSON.stringify({"error":"error happened","message":message}))
+			var err = new Error(message);
+			backHandler.sendDefaultJsonErrResponse(res,err);
 		}
 	}
 	async.parallel([
@@ -42,13 +48,15 @@ function actionResolver(req,res){
 		}
 	],function(err,result){
 		if(err){
-			res.end(JSON.stringify({"error":"error happened","message":err}))
+			//res.end(JSON.stringify({"error":"error happened","message":err}))
+			backHandler.sendDefaultJsonErrResponse(res,err);
 			return;
 		}
 		if(result[0]==undefined){
 			var message = fplocalize().tokenExpired;
 			var err = new Error(message)
-			res.end(JSON.stringify({"error":"error happened","message":err}))
+			//res.end(JSON.stringify({"error":"error happened","message":err}))
+			backHandler.sendDefaultJsonErrResponse(res,err);
 			return;
 		}
 		var lastRequestDate = result[0].lastRequestDate;
@@ -59,7 +67,8 @@ function actionResolver(req,res){
 		if(period>= 1000*60*10){
 			var message = fplocalize(LanguageType.en.key).tokenExpired;
 			var err = new Error(message);
-			res.end(JSON.stringify({"error":"error happened","message":err}))
+			//res.end(JSON.stringify({"error":"error happened","message":err}))
+			backHandler.sendDefaultJsonErrResponse(res,err);
 			return;
 		}else{
 			if(action == ReqType.searchMission.key || action == ReqType.getMessage.key){
@@ -78,14 +87,18 @@ function routeReqWithActionKey(req,res,reqBody,actionKey){
 	if(actionKey == ReqType.register.key){
 		register(req,res,reqBody);
 	}
-	if(actionKey == ReqType.login.key){
+	else if(actionKey == ReqType.login.key){
 		login(req,res,reqBody);
 	}
-	if(actionKey == ReqType.searchMission.key){
+	else if(actionKey == ReqType.searchMission.key){
 		
 	}
-	if(actionKey == ReqType.getMessage.key){
+	else if(actionKey == ReqType.getMessage.key){
 		
+	}else{
+		var message = "no this api"
+		var err = new Error(message);
+		backHandler.sendDefaultJsonErrResponse(res,err);
 	}
 }
 

@@ -13,7 +13,6 @@ function login(req,res,reqBody){
 	var currentBody = JSON.parse(jsonData)
 	
 	var type = currentBody.type;
-	var typeValue = (type == undefined || type == '');
 	var password = currentBody.password;
 	var name = currentBody.name;
 	console.log("user : "+name);
@@ -21,17 +20,11 @@ function login(req,res,reqBody){
 	console.log("type : "+type);
 	async.waterfall([
 		function (cb) {
-			if(typeValue){
-				players.getPlayerDataByNameAndPassword(name,password, cb)
-			}else {
-				players.getPlayerDataByNameAndPassword(reqBody.name, reqBody.password, cb)
-			}
+			players.getPlayerDataByNameAndPassword(name,password, cb)
 		},function(playerData,cb){
 			if(playerData == null){
-				console.log("playerData is null")
-				cb("player is not exist","no result")
+				checkPlayer(players,name,cb);
 			}else{
-				console.log("playerData not null")
 				cb(null,playerData)
 			}
 		},function(result,cb){
@@ -45,20 +38,28 @@ function login(req,res,reqBody){
 				token:newToken,
 				lastRequestDate:date
 			};
-			if(typeValue){
-				players.updateMemberData(name,memberDataToUpdate,cb)
-			}else {
-				players.updateMemberData(reqBody.name, memberDataToUpdate, cb)
-			}
+			players.updateMemberData(name,memberDataToUpdate,cb)
 		}
 	],function(err,result){
-		console.log("----finally----")
 		if(err){
 			resHandler.sendDefaultJsonErrResponse(res,err);
 		}else{
 			resHandler.sendDefaultJsonSuccessResponseWithResData(res,result);
 		}
 		
+	})
+}
+
+function checkPlayer(players,name,cb){
+	async.parallel([function(cb){
+			players.getByName(name,cb);
+		}],
+		function(err,result){
+		if(result ==undefined || result.toString().trim()==''){
+			cb("Player no exist",result);
+		}else{
+			cb("password incorrect",result);
+		}
 	})
 }
 
