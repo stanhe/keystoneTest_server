@@ -110,8 +110,8 @@ APIRequestHandler.prototype.encryptDataStr = function (resDataStr) {
 APIRequestHandler.prototype.decryptDataStr = function (reqDataAry) {
 	var decryptedStr = null;
 	if (reqDataAry != null && reqDataAry.length >= 2) {
-		var dataStr = reqDataAry[0];
-		var key = reqDataAry[1];
+		var dataStr = reqDataAry[0].trim();
+		var key = reqDataAry[1].trim();
 		decryptedStr = cryptoManager.decryptDataStr(dataStr, key);
 	}
 

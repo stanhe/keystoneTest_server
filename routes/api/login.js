@@ -5,19 +5,13 @@ var player = require(global.__base+"/models/gameplayer/Player");
 var APIRequestHandler = require(global.__base + "/routes/APIRequestHandler");
 var async = require('async');
 var crypto = require('crypto');
-function login(req,res,reqBody){
+function login(req,res){
 	var players = new player();
 	var resHandler = new APIRequestHandler();
 	
-	var jsonData = JSON.stringify(req.body);
-	var currentBody = JSON.parse(jsonData)
-	
-	var type = currentBody.type;
+	var currentBody = req;
 	var password = currentBody.password;
 	var name = currentBody.name;
-	console.log("user : "+name);
-	console.log("password : "+password);
-	console.log("type : "+type);
 	async.waterfall([
 		function (cb) {
 			players.getPlayerDataByNameAndPassword(name,password, cb)

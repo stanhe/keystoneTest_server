@@ -1,7 +1,6 @@
 /**
  * Created by stan on 16/8/9.
  */
-
 var APIRequestHandler = require(global.__base + "/routes/APIRequestHandler");
 var player = require(global.__base+"/models/gameplayer/Player");
 var ReqType = require(global.__base+"/enum/ReqTypeKey");
@@ -9,6 +8,7 @@ var LanguageType = require(global.__base+"/enum/LanguageType");
 var fplocalize = require(global.__base + "/localization/fplocalize");
 var login = require("./login");
 var register = require("./register");
+var apiHandle = require("./middleHandler/reqHandler");
 var async = require("async");
 
 var backHandler = new APIRequestHandler();
@@ -19,12 +19,12 @@ function actionResolver(req,res){
 	console.log("-----"+date+"------")
 	console.log("body: "+JSON.stringify(req.body));
 	
-	var jsonData = JSON.stringify(req.body);
-	var reqBody = JSON.parse(jsonData)
+	var reqBody = apiHandle(req);
 	
 	var action = reqBody.type;
 	var token = reqBody.token;
 	var name = reqBody.name;
+	
 	console.log("action : "+action);
 	console.log("token : "+token);
 	console.log("user : "+name);
@@ -75,7 +75,7 @@ function actionResolver(req,res){
 				var player = new player();
 				player.updateLastRequestDate(token);
 			}
-			routeReqWithActionKey(req,res,reqBody,reqBody.type);
+			routeReqWithActionKey(reqBody,res,reqBody.type); //no need decrypt data for req again
 		}
 	})
 	
@@ -83,12 +83,12 @@ function actionResolver(req,res){
 }
 
 
-function routeReqWithActionKey(req,res,reqBody,actionKey){
+function routeReqWithActionKey(req,res,actionKey){
 	if(actionKey == ReqType.register.key){
-		register(req,res,reqBody);
+		register(req,res);
 	}
 	else if(actionKey == ReqType.login.key){
-		login(req,res,reqBody);
+		login(req,res);
 	}
 	else if(actionKey == ReqType.searchMission.key){
 		
@@ -96,7 +96,7 @@ function routeReqWithActionKey(req,res,reqBody,actionKey){
 	else if(actionKey == ReqType.getMessage.key){
 		
 	}else{
-		var message = "no this api"
+		var message = "No this api"
 		var err = new Error(message);
 		backHandler.sendDefaultJsonErrResponse(res,err);
 	}

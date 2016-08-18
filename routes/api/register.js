@@ -4,7 +4,7 @@
 var player = require(global.__base+"/models/gameplayer/Player");
 var APIRequestHandler = require(global.__base + "/routes/APIRequestHandler");
 var async = require('async');
- function register(req,res,reqBody){
+ function register(reqBody,res){
  	var member = new player();
 	 var resHandler = new APIRequestHandler();
 	 async.waterfall([
@@ -14,7 +14,7 @@ var async = require('async');
 			 if(result==null) {
 				 member.addPlayerData(reqBody.name, reqBody.password, cb)
 			 }else{
-				 cb("player already exit","can't creat member")
+				 cb("player already exit","can't create member")
 			 }
 		 },function(result,cb){
 			 member.getByName(reqBody.name,cb);
