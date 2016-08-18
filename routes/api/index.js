@@ -6,8 +6,8 @@ var player = require(global.__base+"/models/gameplayer/Player");
 var ReqType = require(global.__base+"/enum/ReqTypeKey");
 var LanguageType = require(global.__base+"/enum/LanguageType");
 var fplocalize = require(global.__base + "/localization/fplocalize");
-var login = require("./login");
-var register = require("./register");
+var login = require("./account/login");
+var register = require("./account/register");
 var apiHandle = require("./middleHandler/reqHandler");
 var async = require("async");
 
