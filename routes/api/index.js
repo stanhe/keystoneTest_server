@@ -20,6 +20,8 @@ function actionResolver(req,res){
 	console.log("body: "+JSON.stringify(req.body));
 	
 	var reqBody = apiHandle(req);
+	//var jsonData = JSON.stringify(req.body);
+	//var reqBody = JSON.parse(jsonData);
 	
 	var action = reqBody.type;
 	var token = reqBody.token;

@@ -79,10 +79,13 @@ APIRequestHandler.prototype.sendRes = function (res, resData, type) {
 	}
 	res.writeHead(200, ResContentTypeString[type.value]);
 	var resData = {
-		data: this.dataArrayToDataStr(encryptedDataAry)
+		data: this.dataArrayToDataStr(encryptedDataAry)  //back encrypt data
 	};
 	var resStr = JSON.stringify(resData);
-	res.end(resStr);
+	//console.log("-----backData-----"+JSON.stringify(JSON.parse(resDataStr)));
+	//console.log("-----backData_encrypt-----"+JSON.stringify(resStr));
+	res.end(resStr);									//back encrypt data
+	//res.end(JSON.stringify(JSON.parse(resDataStr)));	//back  data direct
 }
 
 /***
