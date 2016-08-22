@@ -74,8 +74,8 @@ function actionResolver(req,res){
 			return;
 		}else{
 			if(action == ReqType.searchMission.key || action == ReqType.getMessage.key){
-				var player = new player();
-				player.updateLastRequestDate(token);
+				var member = new player();
+				member.updateLastRequestDate(token,null);
 			}
 			routeReqWithActionKey(reqBody,res,reqBody.type); //no need decrypt data for req again
 		}
@@ -93,10 +93,14 @@ function routeReqWithActionKey(req,res,actionKey){
 		login(req,res);
 	}
 	else if(actionKey == ReqType.searchMission.key){
-		
+		var message = "post api searchMission"
+		var err = new Error(message);
+		backHandler.sendDefaultJsonErrResponse(res,err);
 	}
 	else if(actionKey == ReqType.getMessage.key){
-		
+		var message = "post api getMessage"
+		var err = new Error(message);
+		backHandler.sendDefaultJsonErrResponse(res,err);
 	}else{
 		var message = "No this api"
 		var err = new Error(message);

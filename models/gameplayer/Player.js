@@ -67,19 +67,18 @@ PlayerDemo.prototype.updateMemberData = function(playerName,memberData,callback)
 	.select("-playerPassword")
 	.exec(callback)
 }
-PlayerDemo.prototype.getLastRequestDateByToken = function(token){
+PlayerDemo.prototype.getLastRequestDateByToken = function(token,callback){
 	PlayerModel.model.findOneAndUpdate(
-		{token:token},
-		{lastRequestDate : new Date()},
-		{upsert:false})
-	.exec();
+		{token:token})
+		.select('playerName lastRequestDate')
+		.exec(callback);
 }
-PlayerDemo.prototype.updateLastRequestDate = function(token){
+PlayerDemo.prototype.updateLastRequestDate = function(token,callback){
 	PlayerModel.model.findOneAndUpdate(
 		{token:token},
 		{lastRequestDate :new Date()},
 		{upsert:false}
-	).exec()
+	).exec(callback)
 }
 
 module.exports = PlayerDemo;

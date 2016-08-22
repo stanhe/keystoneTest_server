@@ -4,8 +4,8 @@
 function node(){
 	
 }
-node.prototype.inc = function(n,callback){
-	callback(false,n+1)
+node.prototype.inc = function(n,cb){
+	cb(null,n+1)
 }
 node.prototype.fire = function(n,cb){
 	cb("no err",n)

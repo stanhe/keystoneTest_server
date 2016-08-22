@@ -10,8 +10,10 @@ function login(req,res){
 	var resHandler = new APIRequestHandler();
 	
 	var currentBody = req;
+	var token = currentBody.token;
 	var password = currentBody.password;
 	var name = currentBody.name;
+	
 	async.waterfall([
 		function (cb) {
 			players.getPlayerDataByNameAndPassword(name,password, cb)

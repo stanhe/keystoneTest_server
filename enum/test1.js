@@ -47,7 +47,7 @@ var async = require('async');
 //var inc1 = t2.inc;
 //var fire1 = t2.fire;
 
-
+//
 //log("hello","boy");
 
 /**
@@ -55,7 +55,7 @@ var async = require('async');
  *
  * 注意，所有的callback都必须形如callback(err, result)，但err参数在前面各函数中无需声明，它被自动处理。
  */
- //1.1
+ 1.1
 //async.waterfall([
 //	function(cb) { log('1.1.1: ', 'start'); cb(null, 3); },
 //	function(n, cb) { log('1.1.2: ',n); inc1(n, cb); },
@@ -64,6 +64,20 @@ var async = require('async');
 //	log('1.1 err: ', err); // -> null
 //	log('1.1 result: ', result); // -> 16
 //});
+//async.series([
+//	function(cb) { log('1.1.1: ', 'start'); cb(null, 3); },
+//	function(n, cb) { log('1.1.2: ',5); inc1(5, cb); },
+//	function(n, cb) { log('1.1.3: ',8); fire1(2*2, cb); }
+//], function (err, result) {
+//	log('1.1 err: ', err); // -> null
+//	log('1.1 result: ', result); // -> 16
+//});
+
+
+
+
+
+
 
 
 
