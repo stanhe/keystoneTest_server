@@ -24,12 +24,12 @@ module.exports  = function(req,res){
 			switch (actionsType){
 				case ReqType.levelUp.key:
 					if(playerName != null){
-						member.updatePlayerActionByPlayerName(playerName,actionsType,actionNo,actionBcak);
+						member.updatePlayerActionByPlayerName(playerName,actionsType,actionNo,actionBack);
 					}
 					break;
 				case ReqType.getGold.key:
 					if(playerName !=null ){
-						member.updatePlayerActionByPlayerName(playerName,actionsType,actionNo,actionBcak);
+						member.updatePlayerActionByPlayerName(playerName,actionsType,actionNo,actionBack);
 					}
 					break;
 			}
@@ -37,7 +37,7 @@ module.exports  = function(req,res){
 	});
 	
 	
-function actionBcak(err,result){
+function actionBack(err,result){
 	if(err){
 		apiHandler.sendDefaultJsonErrResponse(res,err)
 	}else{
