@@ -170,6 +170,12 @@ APIRequestHandler.prototype.sendMissingParameterErrorResponse = function (res, m
 	this.sendDefaultJsonErrResponse(res, err);
 }
 
+APIRequestHandler.prototype.sendNoThisApiResponse = function(res){
+	var errMessage = "No this api";
+	var err = new Error(errMessage);
+	this.sendDefaultJsonErrResponseWithResData(res, err);
+}
+
 module.exports = APIRequestHandler;
 
 

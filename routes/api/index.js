@@ -8,6 +8,8 @@ var LanguageType = require(global.__base+"/enum/LanguageType");
 var fplocalize = require(global.__base + "/localization/fplocalize");
 var login = require("./account/login");
 var register = require("./account/register");
+var getMessage = require('./feature/getMessage');
+var searchMission = require('./feature/searchMission');
 var apiHandle = require("./middleHandler/reqHandler");
 var async = require("async");
 
@@ -65,7 +67,7 @@ function actionResolver(req,res){
 		
 		var currentDate = new Date;
 		var period = currentDate - lastRequestDate;
-		console.log("period ******"+period);
+		console.log("period ****** : "+period);
 		if(period>= 1000*60*10){
 			var message = fplocalize(LanguageType.en.key).tokenExpired;
 			var err = new Error(message);
@@ -93,18 +95,12 @@ function routeReqWithActionKey(req,res,actionKey){
 		login(req,res);
 	}
 	else if(actionKey == ReqType.searchMission.key){
-		var message = "post api searchMission"
-		var err = new Error(message);
-		backHandler.sendDefaultJsonErrResponse(res,err);
+		searchMission(req,res);
 	}
 	else if(actionKey == ReqType.getMessage.key){
-		var message = "post api getMessage"
-		var err = new Error(message);
-		backHandler.sendDefaultJsonErrResponse(res,err);
+		getMessage(req,res);
 	}else{
-		var message = "No this api"
-		var err = new Error(message);
-		backHandler.sendDefaultJsonErrResponse(res,err);
+		backHandler.sendNoThisApiResponse(res);
 	}
 }
 
