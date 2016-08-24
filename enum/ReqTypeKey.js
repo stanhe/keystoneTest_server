@@ -7,5 +7,9 @@ var ReqType = new Enum([
 	"login",
 	"searchMission",
 	"getMessage",
+	
+	"actions",	//type
+		"levelUp",	//detailType
+		"getGold"
 ])
 module.exports = ReqType;

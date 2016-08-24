@@ -6,10 +6,13 @@ var player = require(global.__base+"/models/gameplayer/Player");
 var ReqType = require(global.__base+"/enum/ReqTypeKey");
 var LanguageType = require(global.__base+"/enum/LanguageType");
 var fplocalize = require(global.__base + "/localization/fplocalize");
+
 var login = require("./account/login");
 var register = require("./account/register");
+var actions = require("./feature/action");
 var getMessage = require('./feature/getMessage');
 var searchMission = require('./feature/searchMission');
+
 var apiHandle = require("./middleHandler/reqHandler");
 var async = require("async");
 
@@ -33,7 +36,7 @@ function actionResolver(req,res){
 	console.log("token : "+token);
 	console.log("user : "+name);
 	
-	if(action == ReqType.searchMission.key || action == ReqType.getMessage){
+	if(action == ReqType.searchMission.key || action == ReqType.getMessage || action == ReqType.actions.key){
 		if(token ==undefined || token.trim()==''){
 			var message = fplocalize(LanguageType.en.key).missingParameter + 'token';
 			//res.end(JSON.stringify({"error":"error happened","message":message}))
@@ -43,7 +46,7 @@ function actionResolver(req,res){
 	}
 	async.parallel([
 		function(cb){
-			if(action == ReqType.searchMission.key || action == ReqType.getMessage.key){
+			if(action == ReqType.searchMission.key || action == ReqType.getMessage.key || action == ReqType.actions.key){
 				var member = new player();
 				member.getLastRequestDateByToken(token,cb)
 			}else{
@@ -75,7 +78,7 @@ function actionResolver(req,res){
 			backHandler.sendDefaultJsonErrResponse(res,err);
 			return;
 		}else{
-			if(action == ReqType.searchMission.key || action == ReqType.getMessage.key){
+			if(action == ReqType.searchMission.key || action == ReqType.getMessage.key || action == ReqType.actions.key){
 				var member = new player();
 				member.updateLastRequestDate(token,null);
 			}
@@ -99,7 +102,11 @@ function routeReqWithActionKey(req,res,actionKey){
 	}
 	else if(actionKey == ReqType.getMessage.key){
 		getMessage(req,res);
-	}else{
+	}
+	else if(actionKey == ReqType.actions.key){
+		actions(req,res);
+	} 
+	else{
 		backHandler.sendNoThisApiResponse(res);
 	}
 }

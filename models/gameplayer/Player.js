@@ -4,6 +4,7 @@
 var keystone = require('keystone');
 var Types = keystone.Field.Types;
 var PlayerModel = new keystone.List("PlayerModel",{map:{name:'playerName'}});
+var ReqType = require(global.__base+"/enum/ReqTypeKey");
 var crypto = require('crypto');
 
 PlayerModel.add({
@@ -24,7 +25,22 @@ PlayerModel.register();
 function PlayerDemo(){
 	
 }
-
+PlayerDemo.prototype.updatePlayerActionByPlayerName = function(playerName,actionType,actionNo,callback){
+	switch (actionType){
+		case ReqType.levelUp.key:
+			var condition = {playerName: playerName}
+			PlayerModel.model.findOneAndUpdate(condition,{"$inc":{"playerLevel":actionNo}},{upsert: false,new:true})
+			.select("-playerPassword")
+			.exec(callback);
+			break;
+		case ReqType.getGold.key:
+			var condition = {playerName: playerName}
+			PlayerModel.model.findOneAndUpdate(condition,{"$inc":{"playerGold":actionNo}}, {upsert: false,new: true})
+			.select("-playerPassword")
+			.exec(callback);
+			break;
+	}
+}
 PlayerDemo.prototype.addPlayerData = function (playerName, playerPassword, callback) {
 	crypto.randomBytes(24,function(ex,buf){
 		var token  = buf.toString('hex');
