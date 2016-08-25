@@ -8,8 +8,8 @@ var MissionStatusModel = new keystone.List('MissionStatusModel');
 
 MissionStatusModel.add({
 
-	player: {type: Types.Relationship, ref: 'PlayerModel'},
-	completedMission: {type: Types.Relationship, ref: 'MissionModel'},
+	player: {type: Types.Relationship, ref: 'PlayerModel',initial: true, index: true, required: true,label:"Player",note:"the player"},
+	completedMission: {type: Types.Relationship, ref: 'MissionModel',initial: true, index: true, required: true,label:"Mission",note:"missions"},
 	completeDate: {type: Types.Datetime},
 
 });
