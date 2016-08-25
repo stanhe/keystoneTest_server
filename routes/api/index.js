@@ -11,7 +11,7 @@ var login = require("./account/login");
 var register = require("./account/register");
 var actions = require("./feature/action");
 var getMessage = require('./feature/getMessage');
-var searchMission = require('./feature/searchMission');
+var searchMission = require('./missions/searchMission');
 
 var apiHandle = require("./middleHandler/reqHandler");
 var async = require("async");
