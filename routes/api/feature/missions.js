@@ -14,7 +14,7 @@ module.exports  = function(req,res){
 
 
 	async.series([function(cb){
-		mission.
+		//mission.
 	}],function(err,result){
 		if(err){
 			apiHandler.sendDefaultJsonErrResponse(res,err);
