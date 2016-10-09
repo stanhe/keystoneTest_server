@@ -23,10 +23,10 @@ function actionResolver(req,res){
 	
 	console.log("-----"+date+"------")
 	console.log("body: "+JSON.stringify(req.body));
+	var jsonData = JSON.stringify(req.body);
 	
-	var reqBody = apiHandle(req);
-	//var jsonData = JSON.stringify(req.body);
-	//var reqBody = JSON.parse(jsonData);
+	//var reqBody = apiHandle(req);		//decode req data
+	var reqBody = JSON.parse(jsonData); //get data without encode
 	
 	var action = reqBody.type;
 	var token = reqBody.token;

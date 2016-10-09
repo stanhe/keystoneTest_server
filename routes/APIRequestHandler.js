@@ -84,8 +84,8 @@ APIRequestHandler.prototype.sendRes = function (res, resData, type) {
 	var resStr = JSON.stringify(resData);
 	//console.log("-----backData-----"+JSON.stringify(JSON.parse(resDataStr)));
 	//console.log("-----backData_encrypt-----"+JSON.stringify(resStr));
-	res.end(resStr);									//back encrypt data
-	//res.end(JSON.stringify(JSON.parse(resDataStr)));	//back  data direct
+	//res.end(resStr);									//back encrypt data
+	res.end(JSON.stringify(JSON.parse(resDataStr)));	//back  data direct
 }
 
 /***
