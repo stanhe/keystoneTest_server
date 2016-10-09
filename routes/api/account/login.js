@@ -6,7 +6,7 @@ var APIRequestHandler = require(global.__base + "/routes/APIRequestHandler");
 var async = require('async');
 var crypto = require('crypto');
 function login(req,res){
-	console.log("-----login-----");
+	
 	var players = new player();
 	var resHandler = new APIRequestHandler();
 	
@@ -18,10 +18,7 @@ function login(req,res){
 	var token = currentBody.token;
 	var password = currentBody.password;
 	var name = currentBody.name;
-	console.log("-----name-----");
-	console.log("-----"+name+"-----");
-	console.log("-----password-----");
-	console.log("-----"+password+"-----");
+	
 	async.waterfall([
 		function (cb) {
 			players.getPlayerDataByNameAndPassword(name,password, cb)
